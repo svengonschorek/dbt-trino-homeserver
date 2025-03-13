@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: airbyte
+  - name: spark
     schema: src
     tables:
       - name: s3_binance_payins

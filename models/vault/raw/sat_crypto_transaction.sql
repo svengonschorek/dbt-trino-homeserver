@@ -8,13 +8,13 @@
 -----------------------------------------------
 with binance_transactions_spot as (
 
-    select * from {{ source('airbyte', 's3_binance_transactions_spot') }}
+    select * from {{ source('spark', 's3_binance_transactions_spot') }}
 
 ),
 
 binance_transactions_futures as (
 
-    select * from {{ source('airbyte', 's3_binance_transactions_futures') }}
+    select * from {{ source('spark', 's3_binance_transactions_futures') }}
 
 ),
 

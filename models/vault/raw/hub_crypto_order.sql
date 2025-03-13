@@ -8,7 +8,7 @@
 -----------------------------------------------
 with binance_orders_spot as (
 
-    select * from {{ source('airbyte', 's3_binance_orders_spot') }}
+    select * from {{ source('spark', 's3_binance_orders_spot') }}
 
 ),
 

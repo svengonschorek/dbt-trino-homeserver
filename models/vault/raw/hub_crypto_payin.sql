@@ -8,7 +8,7 @@
 -----------------------------------------------
 with binance_payins as (
 
-    select * from {{ source('airbyte', 's3_binance_payins') }}
+    select * from {{ source('spark', 's3_binance_payins') }}
 
 ),
 
