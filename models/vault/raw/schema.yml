@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: hub_crypto_payin
+    description: Hub for payins to crypto platforms or wallets.
+    columns:
+      - name: pk_crypto_payin
+        data_tests:
+          - unique
+  
+  - name: hub_crypto_order
+    description: Hub for orders in crypto platforms.
+    columns:
+      - name: pk_crypto_order
+        data_tests:
+          - unique
+          - not_null
+
+  - name: hub_crypto_trade
+    description: Hub for trades in crypto platforms.
+
+  - name: hub_crypto_transaction
+    description: Hub for transactions on crypto wallets.
+  
+  - name: sat_crypto_payin
+    description: Satellite for payins to crypto platforms or wallets.
+
+  - name: sat_crypto_order
+    description: Satellite for orders in crypto platforms.
+    columns:
+      - name: fk_crypto_order
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('hub_crypto_order')
+              field: pk_crypto_order
+      - name: order_amount
+        data_tests:
+          - not_null
+      - name: order_at
+        data_tests:
+          - not_null
+
+  - name: sat_crypto_trade
+    description: Satellite for trades in crypto platforms.
+
+  - name: sat_crypto_transaction
+    description: Satellite for transactions on crypto wallets.

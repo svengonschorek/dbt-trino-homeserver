@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: airbyte
+    schema: src
+    tables:
+      - name: s3_binance_payins
+        description: Pay-ins to the binance account.
+      - name: s3_binance_orders_spot
+        description: Order from the binance spot account.
+      - name: s3_binance_trades_spot
+        description: Trades from the binance spot account.
+      - name: s3_binance_trades_futures
+        description: Trades from binance futures account.
+      - name: s3_binance_transactions_spot
+        description: Transactions on the binance spot account
+      - name: s3_binance_transactions_futures
+        description: Transactions on the binance transaction account

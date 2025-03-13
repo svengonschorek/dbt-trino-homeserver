@@ -1,0 +1,22 @@
+services:
+  dbt-core:
+    build:
+      context: .
+    container_name: dbt-lakehouse
+    stdin_open: true
+    tty: true
+    ports:
+      - "8085:8080"
+    env_file : ./config/.env
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    networks:
+      - homeserver_network
+
+networks:
+  homeserver_network:
+    external: true
+    name: homeserver_network
+    

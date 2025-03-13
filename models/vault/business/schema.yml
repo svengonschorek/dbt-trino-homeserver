@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: calc_crypto_accountbalance
+    description: Calculation of the accountbalance per wallet and coin on a transaction time level.
+  - name: calc_crypto_transaction_accountbalance
+    description: Calculation of the accountbalance per wallet and coin on a transaction level.
