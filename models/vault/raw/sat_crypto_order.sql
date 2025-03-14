@@ -58,12 +58,12 @@ final as (
         cast(b.side as varchar(50)) as side,
         cast(b.pair as varchar(50)) as pair,
         cast(b.type as varchar(50)) as type,
-        cast(regexp_extract(b.order_amount, '(\\d+).(\\d+)', 0) as decimal(20, 8)) as order_amount,
+        cast(regexp_extract(b.order_amount, '([0-9]+\.?[0-9]*)', 0) as decimal(20, 8)) as order_amount,
         cast(regexp_extract(b.order_amount, '[A-Z]+', 0) as varchar(10)) as order_coin,
         cast(b.order_price as decimal(20, 8)) as order_price,
-        cast(regexp_extract(b.executed, '(\\d+).(\\d+)', 0) as decimal(20, 8)) as executed_amount,
+        cast(regexp_extract(b.executed, '([0-9]+\.?[0-9]*)', 0) as decimal(20, 8)) as executed_amount,
         cast(b.average_price as decimal(20, 8)) as executed_price,
-        cast(regexp_extract(b.trading_total, '(\\d+).(\\d+)', 0) as decimal(20, 8)) as trade_amount,
+        cast(regexp_extract(b.trading_total, '([0-9]+\.?[0-9]*)', 0) as decimal(20, 8)) as trade_amount,
         cast(regexp_extract(b.trading_total, '[A-Z]+', 0) as varchar(10)) as trade_coin
     from base as b
 

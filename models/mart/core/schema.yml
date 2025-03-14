@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: fact_crypto_transaction
+    description: Fact table for all crypto transactions.
+  - name: fact_crypto_order
+    description: Fact table for all crypto orders.

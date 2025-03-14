@@ -45,4 +45,7 @@ models:
       business:
         +materialized: table
         +schema: vault_business
-
+    mart:
+      core:
+        +materialized: table
+        +schema: mart_core

@@ -74,11 +74,11 @@ final as (
         cast('Spot' as varchar(255)) as wallet,
         cast(b.side as varchar(255)) as side,
         cast(b.pair as varchar(255)) as pair,
-        cast(regexp_extract(b.amount, '(\\d+).(\\d+)', 0) as decimal(20, 8)) as trade_amount,
+        cast(regexp_extract(b.amount, '([0-9]+\.?[0-9]*)', 0) as decimal(20, 8)) as trade_amount,
         cast(regexp_extract(b.amount, '[A-Z]+', 0) as varchar(10)) as trade_coin,
-        cast(regexp_extract(b.fee, '(\\d+).(\\d+)', 0) as decimal(20, 8)) as fee_amount,
+        cast(regexp_extract(b.fee, '([0-9]+\.?[0-9]*)', 0) as decimal(20, 8)) as fee_amount,
         cast(regexp_extract(b.fee, '[A-Z]+', 0) as varchar(10)) as fee_coin,
-        cast(regexp_extract(b.executed, '(\\d+).(\\d+)', 0) as decimal(20, 8)) as executed_amount,
+        cast(regexp_extract(b.executed, '([0-9]+\.?[0-9]*)', 0) as decimal(20, 8)) as executed_amount,
         cast(regexp_extract(b.executed, '[A-Z]+', 0) as varchar(10)) as executed_coin,
         null as realized_profit
     from base_spot as b
@@ -97,11 +97,11 @@ final as (
         cast('USD-M Futures' as varchar(255)) as wallet,
         cast(b.side as varchar(255)) as side,
         cast(b.symbol as varchar(255)) as pair,
-        cast(regexp_extract(b.amount, '(\\d+).(\\d+)', 0) as decimal(20, 8)) as trade_amount,
+        cast(regexp_extract(b.amount, '([0-9]+\.?[0-9]*)', 0) as decimal(20, 8)) as trade_amount,
         cast('UDST' as varchar(10)) as trade_coin,
-        cast(regexp_extract(b.fee, '(\\d+).(\\d+)', 0) as decimal(20, 8)) as fee_amount,
+        cast(regexp_extract(b.fee, '([0-9]+\.?[0-9]*)', 0) as decimal(20, 8)) as fee_amount,
         cast(regexp_extract(b.fee, '[A-Z]+', 0) as varchar(10)) as fee_coin,
-        cast(regexp_extract(b.quantity, '(\\d+).(\\d+)', 0) as decimal(20, 8)) as executed_amount,
+        cast(regexp_extract(b.quantity, '([0-9]+\.?[0-9]*)', 0) as decimal(20, 8)) as executed_amount,
         cast(replace(b.symbol, 'USDT', '') as varchar(10)) as executed_coin,
         cast(realized_profit as decimal(20, 8)) as realized_profit
     from base_futures as b
