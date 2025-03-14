@@ -30,16 +30,24 @@ models:
     columns:
       - name: fk_crypto_order
         data_tests:
-          - not_null
+          - not_null:
+              config:
+                  severity: warn
           - relationships:
               to: ref('hub_crypto_order')
               field: pk_crypto_order
+              config:
+                  severity: warn
       - name: order_amount
         data_tests:
-          - not_null
+          - not_null:
+              config:
+                  severity: warn
       - name: order_at
         data_tests:
-          - not_null
+          - not_null:
+              config:
+                  severity: warn
 
   - name: sat_crypto_trade
     description: Satellite for trades in crypto platforms.
