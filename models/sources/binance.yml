@@ -4,6 +4,8 @@ sources:
   - name: spark
     schema: src
     tables:
+      - name: s3_binance_klines
+        description: Binance klines for all relevant coins
       - name: s3_binance_payins
         description: Pay-ins to the binance account.
       - name: s3_binance_orders_spot

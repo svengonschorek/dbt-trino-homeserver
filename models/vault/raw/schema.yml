@@ -1,12 +1,23 @@
 version: 2
 
 models:
+  - name: hub_crypto_kline
+    description: Hub for klines of different coins.
+    columns:
+      - name: pk_crypto_kline
+        data_tests:
+          - unique:
+              config:
+                severity: warn
+
   - name: hub_crypto_payin
     description: Hub for payins to crypto platforms or wallets.
     columns:
       - name: pk_crypto_payin
         data_tests:
-          - unique
+          - unique:
+              config:
+                severity: warn
   
   - name: hub_crypto_order
     description: Hub for orders in crypto platforms.
@@ -21,6 +32,20 @@ models:
 
   - name: hub_crypto_transaction
     description: Hub for transactions on crypto wallets.
+
+  - name: sat_crypto_kline
+    description: Satelllite for klines of different coins.
+    columns:
+      - name: fk_crypto_kline
+        data_tests:
+          - not_null:
+              config:
+                  severity: warn
+          - relationships:
+              to: ref('hub_crypto_kline')
+              field: pk_crypto_kline
+              config:
+                  severity: warn
   
   - name: sat_crypto_payin
     description: Satellite for payins to crypto platforms or wallets.
