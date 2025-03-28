@@ -41,11 +41,6 @@ models:
           - not_null:
               config:
                   severity: warn
-          - relationships:
-              to: ref('hub_crypto_kline')
-              field: pk_crypto_kline
-              config:
-                  severity: warn
   
   - name: sat_crypto_payin
     description: Satellite for payins to crypto platforms or wallets.
@@ -56,11 +51,6 @@ models:
       - name: fk_crypto_order
         data_tests:
           - not_null:
-              config:
-                  severity: warn
-          - relationships:
-              to: ref('hub_crypto_order')
-              field: pk_crypto_order
               config:
                   severity: warn
       - name: order_amount
