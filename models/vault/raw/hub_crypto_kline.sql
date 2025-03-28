@@ -29,7 +29,8 @@ final as (
 
     select
         -- keys
-        cast(unique_key as varchar(255)) as fk_crypto_kline,
+        cast(unique_key as varchar(255)) as pk_crypto_kline,
+        cast(unique_key as varchar(255)) as bk_crypto_kline,
         -- metadata
         '{{ invocation_id }}' as record_source,
         current_timestamp at time zone 'Europe/Berlin' as load_dts
