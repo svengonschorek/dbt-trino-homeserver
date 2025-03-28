@@ -15,7 +15,6 @@ with sat_crypto_transaction as (
 
 -- apply calculation logic
 -----------------------------------------------
-
 final as (
 
     select

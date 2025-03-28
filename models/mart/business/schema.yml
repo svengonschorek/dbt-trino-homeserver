@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: accountbalance_per_coin
+    description: Shows the accountbalance per coin in USDT and the number of coins.
+  - name: accountbalance
+    description: Shows the accountbalance in USDT.

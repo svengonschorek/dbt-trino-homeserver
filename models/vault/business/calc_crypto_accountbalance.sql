@@ -14,7 +14,6 @@ with sat_crypto_transaction as (
 
 -- apply calculation logic
 -----------------------------------------------
-
 base as (
 
     select
@@ -49,7 +48,15 @@ final as (
             order by
                 transaction_at asc,
                 change_amount desc
-        ) as accountbalance
+        ) as accountbalance,
+        transaction_at as valid_from,
+        lead(transaction_at) over (
+            partition by
+                wallet,
+                coin
+            order by
+                transaction_at
+        ) as valid_to
     from base
 
 )

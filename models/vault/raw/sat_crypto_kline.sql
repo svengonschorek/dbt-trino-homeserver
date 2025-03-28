@@ -47,8 +47,8 @@ final as (
         -- properties
         cast(coin as varchar(20)) as coin,
         cast(basecurrency as varchar(20)) as basecurrency,
-        cast(kline_open_at as timestamp) as kline_open_at,
-        cast(kline_close_at as timestamp) as kline_close_at,
+        cast(kline_open_at as timestamp) at time zone 'Europe/Berlin' as kline_open_at,
+        cast(kline_close_at as timestamp) at time zone 'Europe/Berlin' as kline_close_at,
         cast(open_price as decimal(20, 8)) as open_price,
         cast(close_price as decimal(20, 8)) as close_price,
         cast(high_price as decimal(20, 8)) as high_price,
