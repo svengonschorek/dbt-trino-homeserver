@@ -64,7 +64,8 @@ base as (
         first_value(coalesce(cca.accountbalance, 0)) over (
             partition by kl.fk_crypto_kline
             order by cca.transaction_at desc, cca.wallet
-        ) as coin_balance_close
+        ) as coin_balance_close,
+        coalesce(pw.payin_or_payout, 0) as payin_or_payout
     from klines as kl
 
     left join calc_crypto_accountbalance as cca
@@ -72,6 +73,13 @@ base as (
             kl.coin = cca.coin
             and kl.kline_open_at <= coalesce(cca.valid_to, cast('9999-01-01' as timestamp))
             and kl.kline_close_at >= cca.valid_from
+        )
+
+    left join calc_crypto_accountbalance as pw
+        on (
+            kl.coin = pw.coin
+            and pw.transaction_at between kl.kline_open_at and kl.kline_close_at
+            and pw.payin_or_payout != 0
         )
 
 ),
@@ -96,7 +104,9 @@ final as (
         ) * open_price as usdt_balance_open,
         close_price,
         coin_balance_close,
-        close_price * coin_balance_close as usdt_balance_close
+        close_price * coin_balance_close as usdt_balance_close,
+        payin_or_payout,
+        payin_or_payout * (open_price + close_price) / 2 as usdt_payin_or_payout
     from base
 
 )

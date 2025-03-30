@@ -21,7 +21,14 @@ base as (
         transaction_at,
         wallet,
         coin,
-        sum(change_amount) as change_amount
+        sum(change_amount) as change_amount,
+        sum(
+            case
+                when operation in ('Deposit', 'Airdrop Assets', 'Send/Recieve', 'Withdraw')
+                    then change_amount
+                else 0
+            end
+        ) as payin_or_payout
     from sat_crypto_transaction
     group by
         transaction_at,
@@ -41,6 +48,7 @@ final as (
         wallet,
         coin,
         change_amount,
+        payin_or_payout,
         sum(change_amount) over (
             partition by
                 wallet,

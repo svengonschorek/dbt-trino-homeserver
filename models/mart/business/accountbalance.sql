@@ -21,7 +21,8 @@ final as (
         kline_open_at,
         kline_close_at,
         sum(usdt_balance_open) as usdt_balance_open,
-        sum(usdt_balance_close) as usdt_balance_close
+        sum(usdt_balance_close) as usdt_balance_close,
+        sum(usdt_payin_or_payout) as usdt_payin_or_payout
     from accountbalance_per_coin
     group by
         kline_open_at,
