@@ -54,7 +54,7 @@ final as (
         -- properties
         cast(b.order_utc_at as timestamp) at time zone 'Europe/Berlin' as order_at,
         cast('binance' as varchar(255)) as platform,
-        cast('spot' as varchar(255))  as wallet,
+        cast('spot' as varchar(255)) as wallet,
         cast(b.side as varchar(50)) as side,
         cast(b.pair as varchar(50)) as pair,
         cast(b.type as varchar(50)) as type,

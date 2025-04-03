@@ -40,7 +40,7 @@ final as (
     from sat_crypto_transaction as sct
 
     inner join calc_crypto_transaction_accountbalance as cta
-        on cta.fk_crypto_transaction = sct.fk_crypto_transaction
+        on sct.fk_crypto_transaction = cta.fk_crypto_transaction
 )
 
 select * from final

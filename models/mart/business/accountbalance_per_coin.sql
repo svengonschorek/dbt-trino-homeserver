@@ -63,7 +63,7 @@ base as (
         kl.close_price,
         first_value(coalesce(cca.accountbalance, 0)) over (
             partition by kl.fk_crypto_kline
-            order by cca.transaction_at desc, cca.wallet
+            order by cca.transaction_at desc, cca.wallet asc
         ) as coin_balance_close,
         coalesce(pw.payin_or_payout, 0) as payin_or_payout
     from klines as kl

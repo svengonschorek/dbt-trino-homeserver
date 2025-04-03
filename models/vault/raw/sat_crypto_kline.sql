@@ -54,7 +54,7 @@ final as (
         cast(high_price as decimal(20, 8)) as high_price,
         cast(low_price as decimal(20, 8)) as low_price,
         cast(volume as decimal(20, 8)) as volume,
-        cast(quote_asset_volume as decimal(20, 8)) quote_asset_volume,
+        cast(quote_asset_volume as decimal(20, 8)) as quote_asset_volume,
         cast(number_of_trades as int) as number_of_trades
     from base
     where r = 1
