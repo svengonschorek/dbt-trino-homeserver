@@ -5,3 +5,7 @@ models:
     description: Calculation of the accountbalance per wallet and coin on a transaction time level.
   - name: calc_crypto_transaction_accountbalance
     description: Calculation of the accountbalance per wallet and coin on a transaction level.
+  - name: calc_crypto_tax
+    description: Calculation of the taxable profits from crypto trades.
+  - name: calc_crypto_hodltime
+    description: Calculation of the hold time for every sell in the wallet.
