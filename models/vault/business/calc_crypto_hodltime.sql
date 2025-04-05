@@ -31,10 +31,37 @@ buy_transactions as (
 
 ),
 
+sell_transactions_base as (
+
+    select
+        coin,
+        wallet,
+        transaction_at,
+        change_amount,
+        'realized' as selling_status
+    from calc_crypto_accountbalance
+    where change_amount < 0
+
+    union all
+
+    select
+        coin,
+        wallet,
+        current_timestamp at time zone 'Europe/Berlin' as transaction_at,
+        -1 * accountbalance as change_amount,
+        'unrealized' as selling_status
+    from calc_crypto_accountbalance
+    where valid_to is null
+
+),
+
 sell_transactions as (
 
     select
-        *,
+        coin,
+        wallet,
+        transaction_at,
+        change_amount,
         sum(change_amount) over (
             partition by
                 wallet,
@@ -42,9 +69,9 @@ sell_transactions as (
             order by
                 transaction_at
             rows between unbounded preceding and current row
-        ) as rolling_sell_amount
-    from calc_crypto_accountbalance
-    where change_amount < 0
+        ) as rolling_sell_amount,
+        selling_status
+    from sell_transactions_base
 
 ),
 
@@ -55,8 +82,10 @@ fifo as (
         st.wallet,
         st.coin,
         st.change_amount as total_sell_amount,
+        st.selling_status,
         bt.transaction_at as buy_at,
         bt.change_amount as buy_amount,
+        st.rolling_sell_amount,
         bt.rolling_buy_amount + st.rolling_sell_amount - st.change_amount as rolling_remaining_amount,
         lag(bt.rolling_buy_amount + st.rolling_sell_amount - st.change_amount) over (
             partition by
@@ -96,7 +125,8 @@ final as (
                 then buy_amount - left_to_sell
         end as sell_amount,
         date_diff('millisecond', buy_at, sell_at) as hodltime_millisecond,
-        human_readable_seconds(date_diff('second', buy_at, sell_at)) as hodltime_readable
+        human_readable_seconds(date_diff('second', buy_at, sell_at)) as hodltime_readable,
+        selling_status
     from fifo
     where
         coalesce(prev_rolling_remaining_amount, 0) <= abs(total_sell_amount)
