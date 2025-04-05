@@ -65,7 +65,7 @@ fifo as (
                 st.transaction_at
             order by
                 bt.transaction_at
-        ) prev_rolling_remaining_amount,
+        ) as prev_rolling_remaining_amount,
         st.change_amount + bt.rolling_buy_amount + st.rolling_sell_amount - st.change_amount as left_to_sell
     from sell_transactions as st
 
@@ -77,7 +77,7 @@ fifo as (
         )
     -- filter previously already sold coins
     where
-        abs(st.rolling_sell_amount - st.change_amount) < rolling_buy_amount
+        abs(st.rolling_sell_amount - st.change_amount) < bt.rolling_buy_amount
 
 ),
 
