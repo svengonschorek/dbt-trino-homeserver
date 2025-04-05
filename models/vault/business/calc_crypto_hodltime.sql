@@ -47,7 +47,7 @@ sell_transactions_base as (
     select
         coin,
         wallet,
-        current_timestamp at time zone 'Europe/Berlin' as transaction_at,
+        cast(date_trunc('day', current_date) as timestamp) as transaction_at,
         -1 * accountbalance as change_amount,
         'unrealized' as selling_status
     from calc_crypto_accountbalance
@@ -79,11 +79,11 @@ fifo as (
 
     select
         st.transaction_at as sell_at,
+        bt.transaction_at as buy_at,
         st.wallet,
         st.coin,
         st.change_amount as total_sell_amount,
         st.selling_status,
-        bt.transaction_at as buy_at,
         bt.change_amount as buy_amount,
         st.rolling_sell_amount,
         bt.rolling_buy_amount + st.rolling_sell_amount - st.change_amount as rolling_remaining_amount,
@@ -113,9 +113,10 @@ fifo as (
 final as (
 
     select
-        sell_at,
         wallet,
         coin,
+        sell_at,
+        buy_at,
         case
             when buy_amount >= rolling_remaining_amount
                 then rolling_remaining_amount
