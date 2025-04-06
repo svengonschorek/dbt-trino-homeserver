@@ -69,7 +69,9 @@ final as (
         sell_price,
         buy_at,
         buy_price,
+        selling_status,
         sell_price - buy_price as profit,
+        hodltime_millisecond,
         hodltime_readable,
         case
             when date_diff('year', buy_at, sell_at) < 1 --noqa: ST02
